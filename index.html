@@ -1,0 +1,2963 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Electrólisis y Conducción Eléctrica — Guía Interactiva de Química</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Google Fonts: Nunito, Nunito Sans & JetBrains Mono -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Nunito+Sans:wght@400;600;700&family=Nunito:wght@700;800;900&display=swap"
+            rel="stylesheet"
+        />
+        <!-- FontAwesome 6 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="main.js"></script>
+    </head>
+    <body class="min-h-screen flex flex-col font-sans antialiased selection:bg-blue-600 selection:text-white">
+        <!-- BARRA SUPERIOR DE NAVEGACIÓN Y PROGRESO -->
+        <header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200 shadow-sm">
+            <!-- Barra de progreso continua -->
+            <div class="w-full h-1.5 bg-slate-200">
+                <div
+                    id="progressBar"
+                    class="h-full bg-gradient-to-r from-blue-600 via-sky-500 to-emerald-500 transition-all duration-300"
+                    style="width: 16.66%"
+                ></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+                <!-- Identidad del TP -->
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center shadow-md shadow-blue-600/20"
+                    >
+                        <i class="fa-solid fa-flask-vial text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-mono text-xs font-bold uppercase tracking-wider text-blue-600 block"
+                            >Química · Trabajo Práctico 5B</span
+                        >
+                        <h1 class="font-display font-extrabold text-slate-800 text-sm sm:text-base leading-tight">
+                            Electrólisis y Conducción Eléctrica
+                        </h1>
+                    </div>
+                </div>
+
+                <!-- Indicadores rápidos de diapositivas (Desktop/Tablet) -->
+                <nav
+                    aria-label="Navegación de diapositivas"
+                    class="hidden lg:flex items-center gap-1.5 bg-slate-100 p-1.5 rounded-2xl border border-slate-200"
+                >
+                    <button
+                        onclick="goToSlide(0)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="0"
+                    >
+                        1. Teoría
+                    </button>
+                    <button
+                        onclick="goToSlide(1)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="1"
+                    >
+                        2. Exp. 1: Soluciones
+                    </button>
+                    <button
+                        onclick="goToSlide(2)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="2"
+                    >
+                        3. Exp. 2: Electrólisis
+                    </button>
+                    <button
+                        onclick="goToSlide(3)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="3"
+                    >
+                        4. Aplicaciones
+                    </button>
+                    <button
+                        onclick="goToSlide(4)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="4"
+                    >
+                        5. Esquema
+                    </button>
+                    <button
+                        onclick="goToSlide(5)"
+                        class="slide-dot px-3 py-1.5 rounded-xl text-xs font-bold transition-all"
+                        data-index="5"
+                    >
+                        6. Conclusiones
+                    </button>
+                </nav>
+
+                <!-- Controles Anterior / Contador / Siguiente -->
+                <div class="flex items-center gap-2">
+                    <button
+                        id="prevBtn"
+                        onclick="changeSlide(-1)"
+                        class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold text-xs sm:text-sm transition flex items-center gap-1.5 disabled:opacity-40 disabled:pointer-events-none"
+                        title="Diapositiva anterior (Flecha Izquierda)"
+                    >
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span class="hidden sm:inline">Anterior</span>
+                    </button>
+
+                    <span
+                        id="slideCounter"
+                        class="font-mono text-xs sm:text-sm font-bold px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 border border-blue-200"
+                    >
+                        1 / 6
+                    </span>
+
+                    <button
+                        id="nextBtn"
+                        onclick="changeSlide(1)"
+                        class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white font-bold text-xs sm:text-sm shadow-sm shadow-blue-600/25 transition flex items-center gap-1.5 disabled:opacity-40 disabled:pointer-events-none"
+                        title="Siguiente diapositiva (Flecha Derecha)"
+                    >
+                        <span class="hidden sm:inline">Siguiente</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENEDOR PRINCIPAL DE DIAPOSITIVAS -->
+        <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 1: PORTADA Y MARCO TEÓRICO INTERACTIVO                      -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel active" data-slide="0">
+                <!-- Banner Hero de Portada -->
+                <div
+                    class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white p-6 sm:p-10 mb-8 shadow-xl"
+                >
+                    <div
+                        class="absolute -right-12 -top-12 w-64 h-64 rounded-full bg-blue-500/15 blur-2xl pointer-events-none"
+                    ></div>
+                    <div
+                        class="absolute right-24 -bottom-16 w-56 h-56 rounded-full bg-emerald-500/15 blur-2xl pointer-events-none"
+                    ></div>
+
+                    <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                        <div class="max-w-3xl">
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-sky-300 font-mono text-xs font-bold mb-4"
+                            >
+                                <i class="fa-solid fa-bolt"></i>
+                                <span>TEMA: LA CORRIENTE ELÉCTRICA Y LAS TRANSFORMACIONES QUÍMICAS</span>
+                            </div>
+                            <h2
+                                class="font-display font-black text-2xl sm:text-4xl lg:text-[2.6rem] leading-tight mb-3"
+                            >
+                                Electrólisis y Conducción Eléctrica en Soluciones
+                            </h2>
+                            <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                                Explorá cómo los iones permiten el paso de la corriente eléctrica en líquidos y cómo la
+                                electricidad puede provocar reacciones químicas reales. Hacé clic en cada tarjeta para
+                                desplegar su definición.
+                            </p>
+                        </div>
+
+                        <!-- Botones de estudio activo -->
+                        <div class="flex flex-row lg:flex-col gap-2.5 shrink-0">
+                            <button
+                                onclick="toggleAllInSlide(0, true)"
+                                class="px-4 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs sm:text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+                            >
+                                <i class="fa-solid fa-eye"></i> Abrir todas las tarjetas
+                            </button>
+                            <button
+                                onclick="toggleAllInSlide(0, false)"
+                                class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm border border-white/15 transition flex items-center justify-center gap-2"
+                            >
+                                <i class="fa-solid fa-eye-slash"></i> Cerrar para repasar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de 5 Conceptos Clave del Marco Teórico -->
+                <div class="mb-4 flex items-center justify-between">
+                    <h3 class="font-display font-extrabold text-lg sm:text-xl text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-blue-600"></i> Conceptos Clave del Marco Teórico
+                    </h3>
+                    <span class="text-xs font-semibold text-slate-500 hidden sm:inline"
+                        >Tocá cada tarjeta para ver la explicación</span
+                    >
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                    <!-- Tarjeta 1: Electrólisis -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-bolt-lightning"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-blue-600"
+                                        >Proceso Central</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Electrólisis</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                Es un <strong class="text-slate-800">proceso químico</strong> que se produce cuando
+                                hacemos pasar corriente eléctrica continua a través de una sustancia fundida o una
+                                solución que contiene <strong class="text-blue-700">iones libres</strong>, provocando
+                                reacciones químicas en los electrodos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Ánodo -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-red-100 text-red-600 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-circle-plus"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-red-600"
+                                        >Polo Positivo (+)</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Ánodo</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                Es el electrodo conectado al <strong class="text-red-600">polo positivo (+)</strong> de
+                                la fuente de corriente. Atrae a los aniones (iones negativos) y allí ocurre siempre la
+                                <strong class="text-slate-800">oxidación</strong> (pérdida de electrones).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 3: Cátodo -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-circle-minus"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-sky-600"
+                                        >Polo Negativo (−)</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Cátodo</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                Es el electrodo conectado al <strong class="text-sky-600">polo negativo (−)</strong> de
+                                la fuente de corriente. Atrae a los cationes (iones positivos) y allí ocurre siempre la
+                                <strong class="text-slate-800">reducción</strong> (ganancia de electrones).
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 4: Electrolito -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-droplet"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-emerald-600"
+                                        >Medio Conductor</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Electrolito</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                Sustancia (como la sal de mesa o el bicarbonato de sodio) que, al disolverse en agua o
+                                fundirse, se disocia en <strong class="text-emerald-700">iones móviles</strong>,
+                                permitiendo el transporte de cargas eléctricas a través de la solución.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 5: Electrodos -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-grip-lines-vertical"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-slate-600"
+                                        >Terminales Sólidos</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Electrodos</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                Materiales conductores sólidos (en nuestro experimento,
+                                <strong class="text-slate-800">barras de grafito o minas gruesas de lápiz</strong>)
+                                sumergidos en la solución sin tocarse entre sí, que permiten el ingreso y la salida de
+                                corriente eléctrica del sistema.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 6: Objetivos del Práctico -->
+                    <div
+                        class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-5 text-left flex items-center justify-between gap-3"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-11 h-11 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg shrink-0"
+                                >
+                                    <i class="fa-solid fa-bullseye"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-[11px] font-bold uppercase text-amber-600"
+                                        >Metas de Estudio</span
+                                    >
+                                    <h4 class="font-display font-extrabold text-slate-800 text-lg">Objetivos del TP</h4>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-5 pb-5 pt-1 border-t border-slate-100 text-slate-600 text-sm leading-relaxed"
+                            >
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li>Comprender qué es la electrólisis y cómo ocurre.</li>
+                                    <li>
+                                        Identificar los componentes de una celda electrolítica (ánodo, cátodo,
+                                        electrolito).
+                                    </li>
+                                    <li>Comprobar experimentalmente qué soluciones conducen electricidad.</li>
+                                    <li>Observar evidencias de reacciones químicas (burbujas de gas).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Desplegable de Materiales y Precauciones de Seguridad -->
+                <div
+                    class="accordion-item bg-amber-50/90 rounded-2xl border-2 border-amber-300/80 shadow-sm overflow-hidden"
+                >
+                    <button
+                        onclick="toggleCard(this)"
+                        class="w-full p-5 text-left flex items-center justify-between gap-4"
+                    >
+                        <div class="flex items-center gap-3.5">
+                            <div
+                                class="w-11 h-11 rounded-xl bg-amber-500 text-white flex items-center justify-center text-xl shrink-0 shadow-sm"
+                            >
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+                            <div>
+                                <span class="font-mono text-xs font-bold uppercase text-amber-800"
+                                    >Protocolo de Laboratorio</span
+                                >
+                                <h4 class="font-display font-extrabold text-amber-950 text-base sm:text-lg">
+                                    Materiales del Dispositivo y Precauciones de Seguridad
+                                </h4>
+                            </div>
+                        </div>
+                        <span
+                            class="px-3 py-1 rounded-full bg-amber-200/80 text-amber-900 font-bold text-xs flex items-center gap-1.5 shrink-0"
+                        >
+                            Ver normas <i class="fa-solid fa-chevron-down accordion-chevron"></i>
+                        </span>
+                    </button>
+                    <div class="accordion-content">
+                        <div class="accordion-inner px-5 pb-6 pt-2 border-t border-amber-200/70">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Materiales -->
+                                <div class="bg-white/90 p-4 rounded-xl border border-amber-200">
+                                    <h5
+                                        class="font-display font-extrabold text-slate-800 text-sm mb-2.5 flex items-center gap-2"
+                                    >
+                                        <i class="fa-solid fa-toolbox text-blue-600"></i> Materiales necesarios
+                                    </h5>
+                                    <ul class="text-xs sm:text-sm text-slate-700 space-y-1.5">
+                                        <li>
+                                            <i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Recipiente plástico
+                                            transparente y 3 vasos pequeños con etiquetas.
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Batería o
+                                            portapilas de corriente continua de <strong>3 a 6 voltios</strong>.
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>2 cables con pinzas
+                                            cocodrilo + LED con resistencia (o lámpara de bajo voltaje).
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>2 electrodos de
+                                            grafito (minas gruesas de lápiz), cinta aisladora y cucharitas.
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-check text-emerald-600 mr-1.5"></i>Agua, sal de mesa
+                                            ($\text{NaCl}$), azúcar y bicarbonato de sodio ($\text{NaHCO}_3$).
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Normas de seguridad -->
+                                <div class="bg-red-50/90 p-4 rounded-xl border border-red-200">
+                                    <h5
+                                        class="font-display font-extrabold text-red-900 text-sm mb-2.5 flex items-center gap-2"
+                                    >
+                                        <i class="fa-solid fa-shield-halved text-red-600"></i> Reglas críticas de
+                                        seguridad
+                                    </h5>
+                                    <ul class="text-xs sm:text-sm text-red-950 space-y-1.5">
+                                        <li>
+                                            <i class="fa-solid fa-ban text-red-600 mr-1.5"></i
+                                            ><strong>Nunca</strong> conectar el dispositivo a la corriente eléctrica
+                                            domiciliaria (220 V).
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-ban text-red-600 mr-1.5"></i
+                                            ><strong>No desarmar pilas</strong> para sacar carbones; usar minas de lápiz
+                                            o barras de grafito.
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-fire-extinguisher text-red-600 mr-1.5"></i>No acercar
+                                            llamas ni intentar encender los gases producidos (hidrógeno inflamable).
+                                        </li>
+                                        <li>
+                                            <i class="fa-solid fa-wind text-red-600 mr-1.5"></i>Trabajar en lugar
+                                            ventilado, sin cerrar herméticamente el recipiente, y desconectar la batería
+                                            antes de manipular los electrodos.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 2: EXPERIENCIA PRÁCTICA N.º 1 (SIMULADOR + Q&A)           -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel" data-slide="1">
+                <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <span
+                            class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full"
+                            >Experiencia Práctica N.º 1</span
+                        >
+                        <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 mt-2">
+                            ¿Todas las soluciones conducen electricidad?
+                        </h2>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            onclick="toggleAllInSlide(1, true)"
+                            class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye"></i> Mostrar respuestas
+                        </button>
+                        <button
+                            onclick="toggleAllInSlide(1, false)"
+                            class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye-slash"></i> Ocultar respuestas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- COLUMNA IZQUIERDA: SIMULADOR INTERACTIVO DE VASOS Y LED (7 cols) -->
+                    <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-md p-5 sm:p-6">
+                        <div
+                            class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-100"
+                        >
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span>
+                                <h3 class="font-display font-extrabold text-slate-800 text-base sm:text-lg">
+                                    Simulador de Conductividad en Vasos
+                                </h3>
+                            </div>
+                            <button
+                                onclick="rinseElectrodes1()"
+                                class="px-3 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-bold text-xs transition flex items-center gap-1.5"
+                            >
+                                <i class="fa-solid fa-faucet-drip"></i> Enjuagar electrodos
+                            </button>
+                        </div>
+
+                        <!-- Paso 1: Elegir vaso/solución -->
+                        <div class="mb-4">
+                            <label class="block font-mono text-xs font-bold uppercase text-slate-500 mb-2"
+                                >1. Seleccioná el vaso con la solución:</label
+                            >
+                            <div class="grid grid-cols-3 gap-2.5">
+                                <button
+                                    onclick="selectSolution1('water')"
+                                    id="solBtn-water"
+                                    class="sol1-btn p-2.5 sm:p-3 rounded-2xl border-2 text-left transition-all border-blue-600 bg-blue-50/70"
+                                >
+                                    <div class="font-display font-extrabold text-xs sm:text-sm text-slate-800">
+                                        1. Agua sola
+                                    </div>
+                                    <div class="font-mono text-[11px] text-slate-500">H₂O (solvente)</div>
+                                </button>
+                                <button
+                                    onclick="selectSolution1('salt')"
+                                    id="solBtn-salt"
+                                    class="sol1-btn p-2.5 sm:p-3 rounded-2xl border-2 text-left transition-all border-slate-200 hover:border-slate-300 bg-white"
+                                >
+                                    <div class="font-display font-extrabold text-xs sm:text-sm text-slate-800">
+                                        2. Agua con sal
+                                    </div>
+                                    <div class="font-mono text-[11px] text-emerald-600 font-bold">NaCl (iónico)</div>
+                                </button>
+                                <button
+                                    onclick="selectSolution1('sugar')"
+                                    id="solBtn-sugar"
+                                    class="sol1-btn p-2.5 sm:p-3 rounded-2xl border-2 text-left transition-all border-slate-200 hover:border-slate-300 bg-white"
+                                >
+                                    <div class="font-display font-extrabold text-xs sm:text-sm text-slate-800">
+                                        3. Agua con azúcar
+                                    </div>
+                                    <div class="font-mono text-[11px] text-amber-600">C₁₂H₂₂O₁₁</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Paso 2: Conectar Pinzas Cocodrilo -->
+                        <div class="mb-4">
+                            <label class="block font-mono text-xs font-bold uppercase text-slate-500 mb-2"
+                                >2. Conectá los electrodos a la batería (3V - 6V):</label
+                            >
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    onclick="toggleClamp1('anode')"
+                                    id="clamp1-anode"
+                                    class="p-3 rounded-2xl border-2 border-red-200 bg-red-50/50 hover:bg-red-50 text-red-800 font-display font-extrabold text-xs sm:text-sm transition flex items-center justify-between"
+                                >
+                                    <span><i class="fa-solid fa-plug mr-1.5"></i> Pinza Ánodo (+)</span>
+                                    <span
+                                        id="clamp1-anode-badge"
+                                        class="font-mono text-[11px] px-2 py-0.5 rounded-lg bg-slate-200 text-slate-600"
+                                        >DESCONECTADO</span
+                                    >
+                                </button>
+                                <button
+                                    onclick="toggleClamp1('cathode')"
+                                    id="clamp1-cathode"
+                                    class="p-3 rounded-2xl border-2 border-sky-200 bg-sky-50/50 hover:bg-sky-50 text-sky-800 font-display font-extrabold text-xs sm:text-sm transition flex items-center justify-between"
+                                >
+                                    <span><i class="fa-solid fa-plug mr-1.5"></i> Pinza Cátodo (−)</span>
+                                    <span
+                                        id="clamp1-cathode-badge"
+                                        class="font-mono text-[11px] px-2 py-0.5 rounded-lg bg-slate-200 text-slate-600"
+                                        >DESCONECTADO</span
+                                    >
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- CANVAS / SVG INTERACTIVO DE LA EXPERIENCIA 1 -->
+                        <div
+                            class="relative rounded-2xl bg-slate-900 p-3 sm:p-4 overflow-hidden border border-slate-800"
+                        >
+                            <svg id="sim1Svg" viewBox="0 0 600 320" class="w-full h-auto select-none">
+                                <defs>
+                                    <linearGradient id="waterGrad1" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.32" />
+                                        <stop offset="100%" stop-color="#0284c7" stop-opacity="0.55" />
+                                    </linearGradient>
+                                    <linearGradient id="graphiteGrad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stop-color="#334155" />
+                                        <stop offset="50%" stop-color="#64748b" />
+                                        <stop offset="100%" stop-color="#1e293b" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Mesa de laboratorio -->
+                                <rect x="0" y="285" width="600" height="35" fill="#1e293b" />
+                                <line x1="0" y1="285" x2="600" y2="285" stroke="#334155" stroke-width="2" />
+
+                                <!-- BATERÍA 4.5V / Portapilas (Derecha) -->
+                                <g transform="translate(430, 175)">
+                                    <rect
+                                        x="0"
+                                        y="15"
+                                        width="130"
+                                        height="95"
+                                        rx="10"
+                                        fill="#1e293b"
+                                        stroke="#475569"
+                                        stroke-width="2"
+                                    />
+                                    <!-- Pilas AA internas -->
+                                    <rect x="12" y="25" width="106" height="32" rx="6" fill="#2563eb" />
+                                    <rect x="92" y="25" width="26" height="32" rx="4" fill="#f59e0b" />
+                                    <text
+                                        x="50"
+                                        y="45"
+                                        fill="#ffffff"
+                                        font-family="JetBrains Mono"
+                                        font-size="11"
+                                        font-weight="bold"
+                                    >
+                                        1.5V AA
+                                    </text>
+
+                                    <rect x="12" y="65" width="106" height="32" rx="6" fill="#2563eb" />
+                                    <rect x="92" y="65" width="26" height="32" rx="4" fill="#f59e0b" />
+                                    <text
+                                        x="50"
+                                        y="85"
+                                        fill="#ffffff"
+                                        font-family="JetBrains Mono"
+                                        font-size="11"
+                                        font-weight="bold"
+                                    >
+                                        1.5V AA
+                                    </text>
+
+                                    <!-- Terminales de batería -->
+                                    <rect x="25" y="3" width="18" height="12" rx="2" fill="#ef4444" />
+                                    <text
+                                        x="30"
+                                        y="13"
+                                        fill="#fff"
+                                        font-family="JetBrains Mono"
+                                        font-size="11"
+                                        font-weight="bold"
+                                    >
+                                        +
+                                    </text>
+
+                                    <rect x="85" y="3" width="18" height="12" rx="2" fill="#0ea5e9" />
+                                    <text
+                                        x="90"
+                                        y="13"
+                                        fill="#fff"
+                                        font-family="JetBrains Mono"
+                                        font-size="11"
+                                        font-weight="bold"
+                                    >
+                                        -
+                                    </text>
+
+                                    <text
+                                        x="65"
+                                        y="123"
+                                        text-anchor="middle"
+                                        fill="#94a3b8"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                    >
+                                        FUENTE CC (3V - 6V)
+                                    </text>
+                                </g>
+
+                                <!-- LED ROJO CON RESISTENCIA (Centro-Derecha arriba) -->
+                                <g transform="translate(320, 48)">
+                                    <!-- Base circuito -->
+                                    <rect x="-15" y="32" width="125" height="18" rx="6" fill="#334155" />
+                                    <!-- Resistencia -->
+                                    <line x1="0" y1="32" x2="15" y2="32" stroke="#cbd5e1" stroke-width="3" />
+                                    <rect
+                                        x="15"
+                                        y="25"
+                                        width="34"
+                                        height="14"
+                                        rx="4"
+                                        fill="#fde68a"
+                                        stroke="#b45309"
+                                        stroke-width="1.5"
+                                    />
+                                    <line x1="22" y1="25" x2="22" y2="39" stroke="#dc2626" stroke-width="3" />
+                                    <line x1="30" y1="25" x2="30" y2="39" stroke="#78350f" stroke-width="3" />
+                                    <line x1="39" y1="25" x2="39" y2="39" stroke="#d97706" stroke-width="3" />
+                                    <line x1="49" y1="32" x2="68" y2="32" stroke="#cbd5e1" stroke-width="3" />
+                                    <text
+                                        x="32"
+                                        y="18"
+                                        text-anchor="middle"
+                                        fill="#94a3b8"
+                                        font-family="JetBrains Mono"
+                                        font-size="9"
+                                    >
+                                        Resistencia
+                                    </text>
+
+                                    <!-- Patas del LED -->
+                                    <line x1="68" y1="32" x2="68" y2="12" stroke="#cbd5e1" stroke-width="2.5" />
+                                    <line x1="82" y1="32" x2="82" y2="12" stroke="#cbd5e1" stroke-width="2.5" />
+
+                                    <!-- Cúpula LED -->
+                                    <g id="sim1LedBulb">
+                                        <path
+                                            d="M62,14 L62,-4 A13,13 0 0,1 88,-4 L88,14 Z"
+                                            fill="#7f1d1d"
+                                            stroke="#ef4444"
+                                            stroke-width="1.5"
+                                        />
+                                        <ellipse cx="75" cy="14" rx="15" ry="3" fill="#991b1b" />
+                                    </g>
+                                    <text
+                                        x="75"
+                                        y="-23"
+                                        text-anchor="middle"
+                                        id="sim1LedLabel"
+                                        fill="#94a3b8"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                        font-weight="bold"
+                                    >
+                                        LED APAGADO
+                                    </text>
+                                </g>
+
+                                <!-- VASO TRANSPARENTE CON SOLUCIÓN (Izquierda) -->
+                                <g transform="translate(55, 115)">
+                                    <!-- Líquido -->
+                                    <path
+                                        d="M14,50 L186,50 L176,162 A8,8 0 0,1 168,168 L32,168 A8,8 0 0,1 24,162 Z"
+                                        fill="url(#waterGrad1)"
+                                    />
+                                    <!-- Superficie del agua -->
+                                    <ellipse cx="100" cy="50" rx="86" ry="7" fill="#7dd3fc" fill-opacity="0.35" />
+
+                                    <!-- PARTÍCULAS EN SOLUCIÓN (Dinámicas según solución) -->
+                                    <!-- Grupo Iones Sal (Na+ y Cl-) -->
+                                    <g id="sim1ParticlesSalt" class="hidden">
+                                        <g class="ion-cation">
+                                            <circle
+                                                cx="65"
+                                                cy="95"
+                                                r="11"
+                                                fill="#0ea5e9"
+                                                stroke="#fff"
+                                                stroke-width="1.5"
+                                            />
+                                            <text
+                                                x="65"
+                                                y="99"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="9"
+                                                font-weight="bold"
+                                            >
+                                                Na+
+                                            </text>
+                                        </g>
+                                        <g class="ion-cation">
+                                            <circle
+                                                cx="95"
+                                                cy="138"
+                                                r="11"
+                                                fill="#0ea5e9"
+                                                stroke="#fff"
+                                                stroke-width="1.5"
+                                            />
+                                            <text
+                                                x="95"
+                                                y="142"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="9"
+                                                font-weight="bold"
+                                            >
+                                                Na+
+                                            </text>
+                                        </g>
+                                        <g class="ion-anion">
+                                            <circle
+                                                cx="135"
+                                                cy="88"
+                                                r="11"
+                                                fill="#ef4444"
+                                                stroke="#fff"
+                                                stroke-width="1.5"
+                                            />
+                                            <text
+                                                x="135"
+                                                y="92"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="9"
+                                                font-weight="bold"
+                                            >
+                                                Cl-
+                                            </text>
+                                        </g>
+                                        <g class="ion-anion">
+                                            <circle
+                                                cx="115"
+                                                cy="118"
+                                                r="11"
+                                                fill="#ef4444"
+                                                stroke="#fff"
+                                                stroke-width="1.5"
+                                            />
+                                            <text
+                                                x="115"
+                                                y="122"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="9"
+                                                font-weight="bold"
+                                            >
+                                                Cl-
+                                            </text>
+                                        </g>
+                                    </g>
+
+                                    <!-- Grupo Moléculas Neutras Azúcar -->
+                                    <g id="sim1ParticlesSugar" class="hidden">
+                                        <g class="neutral-mol">
+                                            <rect
+                                                x="65"
+                                                y="82"
+                                                width="32"
+                                                height="18"
+                                                rx="9"
+                                                fill="#f59e0b"
+                                                fill-opacity="0.85"
+                                                stroke="#fef3c7"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="81"
+                                                y="94"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="8"
+                                                font-weight="bold"
+                                            >
+                                                Sac(0)
+                                            </text>
+                                        </g>
+                                        <g class="neutral-mol" style="animation-delay: 0.8s">
+                                            <rect
+                                                x="108"
+                                                y="112"
+                                                width="32"
+                                                height="18"
+                                                rx="9"
+                                                fill="#f59e0b"
+                                                fill-opacity="0.85"
+                                                stroke="#fef3c7"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="124"
+                                                y="124"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="8"
+                                                font-weight="bold"
+                                            >
+                                                Sac(0)
+                                            </text>
+                                        </g>
+                                        <g class="neutral-mol" style="animation-delay: 1.5s">
+                                            <rect
+                                                x="75"
+                                                y="136"
+                                                width="32"
+                                                height="18"
+                                                rx="9"
+                                                fill="#f59e0b"
+                                                fill-opacity="0.85"
+                                                stroke="#fef3c7"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="91"
+                                                y="148"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="8"
+                                                font-weight="bold"
+                                            >
+                                                Sac(0)
+                                            </text>
+                                        </g>
+                                    </g>
+
+                                    <!-- Burbujas cuando hay electrólisis activa -->
+                                    <g id="sim1Bubbles" class="hidden">
+                                        <circle
+                                            cx="46"
+                                            cy="145"
+                                            r="3"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.8s; --delay: 0s"
+                                        />
+                                        <circle
+                                            cx="58"
+                                            cy="130"
+                                            r="2.5"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.5s; --delay: 0.5s"
+                                        />
+                                        <circle
+                                            cx="44"
+                                            cy="115"
+                                            r="3.2"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 2.1s; --delay: 1s"
+                                        />
+                                        <circle
+                                            cx="142"
+                                            cy="145"
+                                            r="3.5"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.4s; --delay: 0.2s"
+                                        />
+                                        <circle
+                                            cx="155"
+                                            cy="135"
+                                            r="2.8"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.6s; --delay: 0.7s"
+                                        />
+                                        <circle
+                                            cx="144"
+                                            cy="120"
+                                            r="3"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.3s; --delay: 1.1s"
+                                        />
+                                        <circle
+                                            cx="154"
+                                            cy="105"
+                                            r="2.5"
+                                            fill="#fff"
+                                            class="bubble"
+                                            style="--dur: 1.7s; --delay: 0.4s"
+                                        />
+                                    </g>
+
+                                    <!-- ELECTRODO IZQUIERDO (ÁNODO +) -->
+                                    <rect
+                                        x="44"
+                                        y="-12"
+                                        width="14"
+                                        height="162"
+                                        rx="4"
+                                        fill="url(#graphiteGrad)"
+                                        stroke="#94a3b8"
+                                        stroke-width="1"
+                                    />
+                                    <text
+                                        x="51"
+                                        y="-19"
+                                        text-anchor="middle"
+                                        fill="#f87171"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                        font-weight="bold"
+                                    >
+                                        ÁNODO (+)
+                                    </text>
+
+                                    <!-- ELECTRODO DERECHO (CÁTODO -) -->
+                                    <rect
+                                        x="142"
+                                        y="-12"
+                                        width="14"
+                                        height="162"
+                                        rx="4"
+                                        fill="url(#graphiteGrad)"
+                                        stroke="#94a3b8"
+                                        stroke-width="1"
+                                    />
+                                    <text
+                                        x="149"
+                                        y="-19"
+                                        text-anchor="middle"
+                                        fill="#38bdf8"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                        font-weight="bold"
+                                    >
+                                        CÁTODO (-)
+                                    </text>
+
+                                    <!-- Contorno del vaso de vidrio -->
+                                    <path
+                                        d="M10,12 L22,163 A10,10 0 0,0 32,172 L168,172 A10,10 0 0,0 178,163 L190,12"
+                                        fill="none"
+                                        stroke="#cbd5e1"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                    />
+                                    <!-- Etiqueta pegada al vaso -->
+                                    <rect
+                                        x="52"
+                                        y="144"
+                                        width="96"
+                                        height="20"
+                                        rx="4"
+                                        fill="#ffffff"
+                                        fill-opacity="0.9"
+                                    />
+                                    <text
+                                        id="sim1BeakerLabel"
+                                        x="100"
+                                        y="158"
+                                        text-anchor="middle"
+                                        fill="#0f172a"
+                                        font-family="Nunito"
+                                        font-size="11"
+                                        font-weight="800"
+                                    >
+                                        Agua sola
+                                    </text>
+                                </g>
+
+                                <!-- CABLES DE CONEXIÓN -->
+                                <!-- Cable Rojo: Batería (+) -> Resistencia/LED -> Ánodo (+) -->
+                                <path
+                                    d="M464,178 C464,110 425,80 402,80"
+                                    fill="none"
+                                    stroke="#ef4444"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    id="wire1Anode"
+                                    d="M320,80 C210,80 140,80 106,108"
+                                    fill="none"
+                                    stroke="#ef4444"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="6 4"
+                                    opacity="0.35"
+                                />
+
+                                <!-- Cable Celeste/Negro: Batería (-) -> Cátodo (-) -->
+                                <path
+                                    id="wire1Cathode"
+                                    d="M524,178 C524,135 260,135 204,108"
+                                    fill="none"
+                                    stroke="#0ea5e9"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="6 4"
+                                    opacity="0.35"
+                                />
+
+                                <!-- Flujo animado de corriente cuando conduce -->
+                                <g id="sim1CurrentFlow" class="hidden">
+                                    <path
+                                        d="M524,178 C524,135 260,135 204,108"
+                                        fill="none"
+                                        stroke="#fef08a"
+                                        stroke-width="2.5"
+                                        class="electron-stream"
+                                    />
+                                    <path
+                                        d="M106,108 C140,80 210,80 320,80"
+                                        fill="none"
+                                        stroke="#fef08a"
+                                        stroke-width="2.5"
+                                        class="electron-stream"
+                                    />
+                                </g>
+                            </svg>
+
+                            <!-- Banner dinámico de diagnóstico abajo del SVG -->
+                            <div
+                                id="sim1StatusBox"
+                                class="mt-2 p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm flex items-center gap-3"
+                            >
+                                <i
+                                    id="sim1StatusIcon"
+                                    class="fa-solid fa-circle-info text-sky-400 text-lg shrink-0"
+                                ></i>
+                                <span id="sim1StatusText"
+                                    >Conectá ambas pinzas (Ánodo y Cátodo) y probá qué ocurre con cada vaso.</span
+                                >
+                            </div>
+                        </div>
+
+                        <!-- Tabla Resumen Experimental -->
+                        <div class="mt-5 overflow-x-auto rounded-2xl border border-slate-200">
+                            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+                                <thead>
+                                    <tr
+                                        class="bg-slate-100 text-slate-700 font-display font-extrabold border-b border-slate-200"
+                                    >
+                                        <th class="p-3">Sustancia</th>
+                                        <th class="p-3">¿Se disuelve en agua?</th>
+                                        <th class="p-3">¿Conduce electricidad?</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-100">
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-bold text-slate-800">Agua sola</td>
+                                        <td class="p-3 text-slate-600">Es el solvente</td>
+                                        <td class="p-3">
+                                            <span
+                                                class="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-xs"
+                                                >No (o casi nulo)</span
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr class="bg-emerald-50/40 hover:bg-emerald-50/80">
+                                        <td class="p-3 font-bold text-emerald-900">Agua con sal (NaCl)</td>
+                                        <td class="p-3 text-emerald-800 font-semibold">Sí, se disuelve</td>
+                                        <td class="p-3">
+                                            <span
+                                                class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs"
+                                                ><i class="fa-solid fa-bolt mr-1"></i>Sí conduce</span
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-50">
+                                        <td class="p-3 font-bold text-slate-800">Agua con azúcar</td>
+                                        <td class="p-3 text-slate-600">Sí, se disuelve</td>
+                                        <td class="p-3">
+                                            <span
+                                                class="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-bold text-xs"
+                                                >No conduce</span
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: 5 PREGUNTAS Y RESPUESTAS DESPLEGABLES (5 cols) -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-center gap-3">
+                            <i class="fa-solid fa-circle-question text-blue-600 text-xl"></i>
+                            <div>
+                                <h4 class="font-display font-extrabold text-blue-950 text-sm">
+                                    Cuestionario — Experiencia 1
+                                </h4>
+                                <p class="text-xs text-blue-800">
+                                    Intentá responder mentalmente antes de desplegar cada tarjeta.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- P1 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-4 text-left flex items-start justify-between gap-3"
+                            >
+                                <div class="flex items-start gap-3">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-lg mt-0.5"
+                                        >01</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm sm:text-base"
+                                        >¿Qué solución permitió el paso de la corriente eléctrica?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100 text-sm text-slate-600 leading-relaxed"
+                                >
+                                    El <strong class="text-emerald-700">agua con sal</strong> (cloruro de sodio disuelto
+                                    en agua). Fue la única solución que encendió el LED con intensidad.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P2 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-4 text-left flex items-start justify-between gap-3"
+                            >
+                                <div class="flex items-start gap-3">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-lg mt-0.5"
+                                        >02</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm sm:text-base"
+                                        >¿Por qué el agua con sal conduce electricidad?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100 text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Porque la sal de mesa ($\text{NaCl}$) es un compuesto iónico que, al disolverse en
+                                    agua, se disocia en
+                                    <strong class="text-slate-800"
+                                        >iones con carga eléctrica ($\text{Na}^+$ y $\text{Cl}^-$)</strong
+                                    >
+                                    que se mueven libremente y transportan carga.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P3 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-4 text-left flex items-start justify-between gap-3"
+                            >
+                                <div class="flex items-start gap-3">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-lg mt-0.5"
+                                        >03</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm sm:text-base"
+                                        >¿Por qué el agua con azúcar no presenta la misma conducción?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100 text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Porque el azúcar (sacarosa) es un compuesto covalente que se disuelve formando
+                                    <strong class="text-amber-700">moléculas neutras</strong>, sin liberar iones con
+                                    carga eléctrica capaces de transportar corriente.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P4 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-4 text-left flex items-start justify-between gap-3"
+                            >
+                                <div class="flex items-start gap-3">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-lg mt-0.5"
+                                        >04</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm sm:text-base"
+                                        >¿Qué función cumplen los iones en la conducción eléctrica?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100 text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Actúan como <strong class="text-slate-800">portadores de carga móvil</strong> dentro
+                                    del líquido: los cationes (+) migran hacia el cátodo (−) y los aniones (−) viajan
+                                    hacia el ánodo (+), cerrando el circuito eléctrico.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P5 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-4 text-left flex items-start justify-between gap-3"
+                            >
+                                <div class="flex items-start gap-3">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-blue-100 text-blue-700 px-2 py-1 rounded-lg mt-0.5"
+                                        >05</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm sm:text-base"
+                                        >¿Qué relación existe entre la composición de una solución y su capacidad para
+                                        conducir electricidad?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-4 pt-1 border-t border-slate-100 text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Una solución conduce electricidad únicamente si contiene
+                                    <strong class="text-slate-800">partículas cargadas móviles (iones)</strong>. Si el
+                                    soluto es un <em>electrolito</em> (libera iones), conduce; si es un
+                                    <em>no electrolito</em> (moléculas neutras), no conduce.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 3: EXPERIENCIA PRÁCTICA N.º 2 (ELECTRÓLISIS DEL AGUA)     -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel" data-slide="2">
+                <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <span
+                            class="font-mono text-xs font-bold uppercase tracking-wider text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-full"
+                            >Experiencia Práctica N.º 2</span
+                        >
+                        <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 mt-2">
+                            Electrólisis del Agua con Bicarbonato de Sodio
+                        </h2>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            onclick="toggleAllInSlide(2, true)"
+                            class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye"></i> Mostrar respuestas
+                        </button>
+                        <button
+                            onclick="toggleAllInSlide(2, false)"
+                            class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye-slash"></i> Ocultar respuestas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- COLUMNA IZQUIERDA: SIMULADOR DE ELECTRÓLISIS DEL AGUA (7 cols) -->
+                    <div class="lg:col-span-7 bg-white rounded-3xl border border-slate-200 shadow-md p-5 sm:p-6">
+                        <div
+                            class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-slate-100"
+                        >
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-blue-500 animate-pulse"></span>
+                                <h3 class="font-display font-extrabold text-slate-800 text-base sm:text-lg">
+                                    Celda Electrolítica (150 ml de Agua)
+                                </h3>
+                            </div>
+                            <button
+                                onclick="resetSim2()"
+                                class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center gap-1.5"
+                            >
+                                <i class="fa-solid fa-rotate-left"></i> Reiniciar agua
+                            </button>
+                        </div>
+
+                        <!-- Controles paso a paso -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-4">
+                            <button
+                                onclick="toggleBicarbonate2()"
+                                id="btnBicarb2"
+                                class="p-3 rounded-2xl border-2 border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 text-emerald-900 font-display font-extrabold text-xs sm:text-sm transition text-left"
+                            >
+                                <div class="flex items-center justify-between mb-1">
+                                    <span><i class="fa-solid fa-spoon mr-1"></i> Bicarbonato</span>
+                                    <span
+                                        id="badgeBicarb2"
+                                        class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 text-slate-600"
+                                        >SIN AGREGAR</span
+                                    >
+                                </div>
+                                <div class="text-[11px] font-normal text-emerald-700">½ cucharadita NaHCO₃</div>
+                            </button>
+
+                            <button
+                                onclick="toggleClamp2('anode')"
+                                id="clamp2-anode"
+                                class="p-3 rounded-2xl border-2 border-red-200 bg-red-50/50 hover:bg-red-50 text-red-900 font-display font-extrabold text-xs sm:text-sm transition text-left"
+                            >
+                                <div class="flex items-center justify-between mb-1">
+                                    <span><i class="fa-solid fa-plus-circle mr-1"></i> Ánodo (+)</span>
+                                    <span
+                                        id="badge2-anode"
+                                        class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 text-slate-600"
+                                        >OFF</span
+                                    >
+                                </div>
+                                <div class="text-[11px] font-normal text-red-700">Conectar polo positivo</div>
+                            </button>
+
+                            <button
+                                onclick="toggleClamp2('cathode')"
+                                id="clamp2-cathode"
+                                class="p-3 rounded-2xl border-2 border-sky-200 bg-sky-50/50 hover:bg-sky-50 text-sky-900 font-display font-extrabold text-xs sm:text-sm transition text-left"
+                            >
+                                <div class="flex items-center justify-between mb-1">
+                                    <span><i class="fa-solid fa-minus-circle mr-1"></i> Cátodo (−)</span>
+                                    <span
+                                        id="badge2-cathode"
+                                        class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-slate-200 text-slate-600"
+                                        >OFF</span
+                                    >
+                                </div>
+                                <div class="text-[11px] font-normal text-sky-700">Conectar polo negativo</div>
+                            </button>
+                        </div>
+
+                        <!-- SVG INTERACTIVO DE ELECTRÓLISIS -->
+                        <div
+                            class="relative rounded-2xl bg-slate-900 p-3 sm:p-4 overflow-hidden border border-slate-800"
+                        >
+                            <svg viewBox="0 0 600 330" class="w-full h-auto select-none">
+                                <defs>
+                                    <linearGradient id="waterGrad2" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="#0ea5e9" stop-opacity="0.3" />
+                                        <stop offset="100%" stop-color="#0369a1" stop-opacity="0.58" />
+                                    </linearGradient>
+                                </defs>
+
+                                <!-- Superficie mesa -->
+                                <rect x="0" y="292" width="600" height="38" fill="#1e293b" />
+
+                                <!-- RECIPIENTE TRANSPARENTE (150 ml) -->
+                                <g transform="translate(35, 115)">
+                                    <!-- Agua 150 ml -->
+                                    <rect x="12" y="42" width="276" height="128" rx="8" fill="url(#waterGrad2)" />
+                                    <line
+                                        x1="12"
+                                        y1="42"
+                                        x2="288"
+                                        y2="42"
+                                        stroke="#7dd3fc"
+                                        stroke-width="2"
+                                        stroke-opacity="0.6"
+                                    />
+                                    <text
+                                        x="278"
+                                        y="56"
+                                        text-anchor="end"
+                                        fill="#bae6fd"
+                                        font-family="JetBrains Mono"
+                                        font-size="9"
+                                    >
+                                        150 ml
+                                    </text>
+
+                                    <!-- Iones de Bicarbonato disuelto (visibles al agregar) -->
+                                    <g id="sim2Ions" class="hidden">
+                                        <g class="ion-cation">
+                                            <circle
+                                                cx="115"
+                                                cy="80"
+                                                r="10"
+                                                fill="#10b981"
+                                                stroke="#fff"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="115"
+                                                y="83"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="8"
+                                                font-weight="bold"
+                                            >
+                                                Na+
+                                            </text>
+                                        </g>
+                                        <g class="ion-anion">
+                                            <rect
+                                                x="148"
+                                                y="102"
+                                                width="38"
+                                                height="18"
+                                                rx="9"
+                                                fill="#8b5cf6"
+                                                stroke="#fff"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="167"
+                                                y="114"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="7.5"
+                                                font-weight="bold"
+                                            >
+                                                HCO3-
+                                            </text>
+                                        </g>
+                                        <g class="ion-cation" style="animation-delay: 0.6s">
+                                            <circle
+                                                cx="130"
+                                                cy="142"
+                                                r="10"
+                                                fill="#10b981"
+                                                stroke="#fff"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="130"
+                                                y="145"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="8"
+                                                font-weight="bold"
+                                            >
+                                                Na+
+                                            </text>
+                                        </g>
+                                        <g class="ion-anion" style="animation-delay: 0.9s">
+                                            <rect
+                                                x="155"
+                                                y="65"
+                                                width="38"
+                                                height="18"
+                                                rx="9"
+                                                fill="#8b5cf6"
+                                                stroke="#fff"
+                                                stroke-width="1.2"
+                                            />
+                                            <text
+                                                x="174"
+                                                y="77"
+                                                text-anchor="middle"
+                                                fill="#fff"
+                                                font-family="JetBrains Mono"
+                                                font-size="7.5"
+                                                font-weight="bold"
+                                            >
+                                                HCO3-
+                                            </text>
+                                        </g>
+                                    </g>
+
+                                    <!-- BURBUJAS DE GAS (O2 en Ánodo y 2x H2 en Cátodo) -->
+                                    <g id="sim2GasBubbles" class="hidden">
+                                        <!-- Ánodo (Oxígeno O2) -->
+                                        <circle
+                                            cx="62"
+                                            cy="145"
+                                            r="3.5"
+                                            fill="#fca5a5"
+                                            class="bubble"
+                                            style="--dur: 1.9s; --delay: 0s"
+                                        />
+                                        <circle
+                                            cx="84"
+                                            cy="130"
+                                            r="3"
+                                            fill="#fca5a5"
+                                            class="bubble"
+                                            style="--dur: 1.7s; --delay: 0.6s"
+                                        />
+                                        <circle
+                                            cx="60"
+                                            cy="110"
+                                            r="3.5"
+                                            fill="#fca5a5"
+                                            class="bubble"
+                                            style="--dur: 2.1s; --delay: 1.1s"
+                                        />
+                                        <rect
+                                            x="28"
+                                            y="16"
+                                            width="88"
+                                            height="20"
+                                            rx="6"
+                                            fill="#7f1d1d"
+                                            stroke="#ef4444"
+                                            stroke-width="1"
+                                        />
+                                        <text
+                                            x="72"
+                                            y="29"
+                                            text-anchor="middle"
+                                            fill="#fecaca"
+                                            font-family="JetBrains Mono"
+                                            font-size="9"
+                                            font-weight="bold"
+                                        >
+                                            Gas O₂ (Oxid.)
+                                        </text>
+
+                                        <!-- Cátodo (Hidrógeno H2 - doble volumen de burbujas) -->
+                                        <circle
+                                            cx="215"
+                                            cy="150"
+                                            r="3"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.2s; --delay: 0s"
+                                        />
+                                        <circle
+                                            cx="238"
+                                            cy="144"
+                                            r="2.8"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.4s; --delay: 0.2s"
+                                        />
+                                        <circle
+                                            cx="213"
+                                            cy="128"
+                                            r="3.2"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.1s; --delay: 0.4s"
+                                        />
+                                        <circle
+                                            cx="239"
+                                            cy="120"
+                                            r="2.5"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.3s; --delay: 0.7s"
+                                        />
+                                        <circle
+                                            cx="216"
+                                            cy="105"
+                                            r="3"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.5s; --delay: 0.9s"
+                                        />
+                                        <circle
+                                            cx="237"
+                                            cy="98"
+                                            r="2.8"
+                                            fill="#7dd3fc"
+                                            class="bubble"
+                                            style="--dur: 1.2s; --delay: 1.1s"
+                                        />
+                                        <rect
+                                            x="182"
+                                            y="16"
+                                            width="94"
+                                            height="20"
+                                            rx="6"
+                                            fill="#0c4a6e"
+                                            stroke="#38bdf8"
+                                            stroke-width="1"
+                                        />
+                                        <text
+                                            x="229"
+                                            y="29"
+                                            text-anchor="middle"
+                                            fill="#bae6fd"
+                                            font-family="JetBrains Mono"
+                                            font-size="9"
+                                            font-weight="bold"
+                                        >
+                                            Gas H₂ (Red.)
+                                        </text>
+                                    </g>
+
+                                    <!-- Electrodo Izquierdo: Ánodo (+) -->
+                                    <rect
+                                        x="65"
+                                        y="-16"
+                                        width="16"
+                                        height="168"
+                                        rx="4"
+                                        fill="url(#graphiteGrad)"
+                                        stroke="#cbd5e1"
+                                        stroke-width="1"
+                                    />
+                                    <text
+                                        x="73"
+                                        y="-24"
+                                        text-anchor="middle"
+                                        fill="#f87171"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                        font-weight="bold"
+                                    >
+                                        ÁNODO (+)
+                                    </text>
+
+                                    <!-- Electrodo Derecho: Cátodo (-) -->
+                                    <rect
+                                        x="219"
+                                        y="-16"
+                                        width="16"
+                                        height="168"
+                                        rx="4"
+                                        fill="url(#graphiteGrad)"
+                                        stroke="#cbd5e1"
+                                        stroke-width="1"
+                                    />
+                                    <text
+                                        x="227"
+                                        y="-24"
+                                        text-anchor="middle"
+                                        fill="#38bdf8"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                        font-weight="bold"
+                                    >
+                                        CÁTODO (-)
+                                    </text>
+
+                                    <!-- Paredes del recipiente -->
+                                    <path
+                                        d="M10,10 L10,168 A8,8 0 0,0 18,176 L282,176 A8,8 0 0,0 290,168 L290,10"
+                                        fill="none"
+                                        stroke="#e2e8f0"
+                                        stroke-width="3"
+                                    />
+                                </g>
+
+                                <!-- BATERÍA DE CORRIENTE CONTINUA (Derecha) -->
+                                <g transform="translate(415, 165)">
+                                    <rect
+                                        x="0"
+                                        y="16"
+                                        width="145"
+                                        height="106"
+                                        rx="12"
+                                        fill="#1e293b"
+                                        stroke="#475569"
+                                        stroke-width="2"
+                                    />
+                                    <rect x="14" y="28" width="117" height="36" rx="6" fill="#0284c7" />
+                                    <text
+                                        x="72"
+                                        y="50"
+                                        text-anchor="middle"
+                                        fill="#fff"
+                                        font-family="JetBrains Mono"
+                                        font-size="12"
+                                        font-weight="bold"
+                                    >
+                                        BATERÍA 6V CC
+                                    </text>
+                                    <rect x="14" y="72" width="117" height="36" rx="6" fill="#334155" />
+                                    <text
+                                        x="72"
+                                        y="94"
+                                        text-anchor="middle"
+                                        fill="#94a3b8"
+                                        font-family="JetBrains Mono"
+                                        font-size="10"
+                                    >
+                                        Corriente Continua
+                                    </text>
+
+                                    <!-- Polo + -->
+                                    <rect x="26" y="2" width="22" height="14" rx="3" fill="#ef4444" />
+                                    <text
+                                        x="37"
+                                        y="13"
+                                        text-anchor="middle"
+                                        fill="#fff"
+                                        font-family="JetBrains Mono"
+                                        font-size="12"
+                                        font-weight="bold"
+                                    >
+                                        +
+                                    </text>
+                                    <!-- Polo - -->
+                                    <rect x="96" y="2" width="22" height="14" rx="3" fill="#0ea5e9" />
+                                    <text
+                                        x="107"
+                                        y="13"
+                                        text-anchor="middle"
+                                        fill="#fff"
+                                        font-family="JetBrains Mono"
+                                        font-size="12"
+                                        font-weight="bold"
+                                    >
+                                        -
+                                    </text>
+                                </g>
+
+                                <!-- CABLES -->
+                                <!-- Cable Rojo: Polo + a Ánodo -->
+                                <path
+                                    id="wire2Anode"
+                                    d="M452,167 C452,45 108,45 108,99"
+                                    fill="none"
+                                    stroke="#ef4444"
+                                    stroke-width="4.5"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="6 4"
+                                    opacity="0.35"
+                                />
+                                <!-- Cable Celeste: Polo - a Cátodo -->
+                                <path
+                                    id="wire2Cathode"
+                                    d="M522,167 C522,95 262,95 262,99"
+                                    fill="none"
+                                    stroke="#0ea5e9"
+                                    stroke-width="4.5"
+                                    stroke-linecap="round"
+                                    stroke-dasharray="6 4"
+                                    opacity="0.35"
+                                />
+
+                                <!-- FLUJO DE ELECTRONES (Polo - -> Cátodo, Ánodo -> Polo +) -->
+                                <g id="sim2Electrons" class="hidden">
+                                    <path
+                                        d="M522,167 C522,95 262,95 262,99"
+                                        fill="none"
+                                        stroke="#fde047"
+                                        stroke-width="2.5"
+                                        class="electron-stream"
+                                    />
+                                    <path
+                                        d="M108,99 C108,45 452,45 452,167"
+                                        fill="none"
+                                        stroke="#fde047"
+                                        stroke-width="2.5"
+                                        class="electron-stream"
+                                    />
+                                    <rect x="295" y="34" width="142" height="20" rx="6" fill="#fef08a" />
+                                    <text
+                                        x="366"
+                                        y="47"
+                                        text-anchor="middle"
+                                        fill="#713f12"
+                                        font-family="JetBrains Mono"
+                                        font-size="9.5"
+                                        font-weight="bold"
+                                    >
+                                        e⁻ Flujo de electrones
+                                    </text>
+                                </g>
+                            </svg>
+
+                            <!-- Panel de estado Simulador 2 -->
+                            <div
+                                id="sim2StatusBox"
+                                class="mt-2 p-3 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs sm:text-sm flex items-center gap-3"
+                            >
+                                <i id="sim2StatusIcon" class="fa-solid fa-flask text-blue-400 text-lg shrink-0"></i>
+                                <span id="sim2StatusText"
+                                    >Agregá bicarbonato de sodio y conectá el ánodo (+) y el cátodo (−) para iniciar la
+                                    electrólisis del agua.</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA DERECHA: LAS 7 PREGUNTAS Y RESPUESTAS (5 cols) -->
+                    <div class="lg:col-span-5 space-y-2.5 max-h-[680px] overflow-y-auto pr-1">
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-3.5 flex items-center gap-3">
+                            <i class="fa-solid fa-clipboard-question text-indigo-600 text-xl"></i>
+                            <div>
+                                <h4 class="font-display font-extrabold text-indigo-950 text-sm">
+                                    Cuestionario — Experiencia 2 (7 Preguntas)
+                                </h4>
+                                <p class="text-xs text-indigo-800">
+                                    Desplegá cada tarjeta para estudiar las respuestas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- P1 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >01</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Qué cambios se observan al conectar la batería?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Aparecen pequeñas burbujas de gas alrededor de los electrodos sumergidos y, si se
+                                    incluye un LED o lámpara en el circuito, se enciende indicando el paso de corriente.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P2 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >02</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿En qué lugar aparecen las burbujas?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Sobre la superficie de los
+                                    <strong class="text-slate-800">dos electrodos de grafito</strong> sumergidos en la
+                                    solución (notándose mayor cantidad de burbujas en el cátodo).
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P3 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >03</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Qué función cumple el bicarbonato de sodio?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Actúa como <strong class="text-emerald-700">electrolito</strong>: aumenta la
+                                    conductividad eléctrica del agua al aportar iones disueltos, facilitando el paso de
+                                    corriente sin producir cloro tóxico (como ocurriría con sal de mesa).
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P4 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >04</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Por qué se utiliza una fuente de corriente eléctrica?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Porque la descomposición química del agua <strong>no es espontánea</strong>;
+                                    requiere energía eléctrica externa (corriente continua) para forzar las reacciones
+                                    de oxidación y reducción.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P5 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >05</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Qué diferencia existe entre el ánodo y el cátodo?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    El <strong class="text-red-600">ánodo</strong> está conectado al polo positivo (+) y
+                                    en él ocurre la <strong>oxidación</strong>. El
+                                    <strong class="text-sky-600">cátodo</strong> está conectado al polo negativo (−) y
+                                    en él ocurre la <strong>reducción</strong>.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P6 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >06</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Por qué decimos que la electrólisis es una transformación química?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Porque a partir del agua se obtienen
+                                    <strong class="text-slate-800">sustancias nuevas (gases)</strong> con propiedades
+                                    diferentes a las del líquido inicial, modificando la composición química de la
+                                    materia.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- P7 -->
+                        <div
+                            class="accordion-item bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden"
+                        >
+                            <button
+                                onclick="toggleCard(this)"
+                                class="w-full p-3.5 text-left flex items-start justify-between gap-2.5"
+                            >
+                                <div class="flex items-start gap-2.5">
+                                    <span
+                                        class="font-mono text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-lg mt-0.5"
+                                        >07</span
+                                    >
+                                    <span class="font-display font-bold text-slate-800 text-sm"
+                                        >¿Qué gases pueden producirse durante la electrólisis del agua?</span
+                                    >
+                                </div>
+                                <i class="fa-solid fa-chevron-down text-slate-400 mt-1 accordion-chevron"></i>
+                            </button>
+                            <div class="accordion-content">
+                                <div
+                                    class="accordion-inner px-4 pb-3.5 pt-1 border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed"
+                                >
+                                    Principalmente
+                                    <strong class="text-sky-700">hidrógeno gaseoso ($\text{H}_2$)</strong> en el cátodo
+                                    y <strong class="text-red-700">oxígeno gaseoso ($\text{O}_2$)</strong> en el ánodo
+                                    (en una proporción de volumen 2:1).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 4: APLICACIONES DE LA ELECTRÓLISIS                        -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel" data-slide="3">
+                <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <span
+                            class="font-mono text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full"
+                            >Investigación y Tecnología</span
+                        >
+                        <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 mt-2">
+                            Aplicaciones de la Electrólisis en la Industria y la Vida Cotidiana
+                        </h2>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            onclick="toggleAllInSlide(3, true)"
+                            class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye"></i> Abrir todas
+                        </button>
+                        <button
+                            onclick="toggleAllInSlide(3, false)"
+                            class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye-slash"></i> Cerrar todas
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- App 1: Galvanizado -->
+                    <div
+                        class="accordion-item bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-cyan-100 text-cyan-700 flex items-center justify-center text-xl shrink-0"
+                                >
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-cyan-700">PREGUNTA 01</span>
+                                    <h3 class="font-display font-extrabold text-slate-800 text-lg">
+                                        ¿Qué es el galvanizado?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-6 pb-6 pt-2 border-t border-slate-100 text-slate-600 text-sm sm:text-base leading-relaxed"
+                            >
+                                Es un proceso metalúrgico y electroquímico que consiste en
+                                <strong class="text-slate-800"
+                                    >recubrir una pieza metálica (habitualmente hierro o acero) con una capa protectora
+                                    de zinc</strong
+                                >
+                                para evitar la oxidación y la corrosión ambiental.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App 2: Recubrimiento metálico -->
+                    <div
+                        class="accordion-item bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl shrink-0"
+                                >
+                                    <i class="fa-solid fa-layer-group"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-amber-700">PREGUNTA 02</span>
+                                    <h3 class="font-display font-extrabold text-slate-800 text-lg">
+                                        ¿Cómo se utiliza la electrólisis para recubrir objetos metálicos?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-6 pb-6 pt-2 border-t border-slate-100 text-slate-600 text-sm sm:text-base leading-relaxed"
+                            >
+                                Mediante la
+                                <strong class="text-amber-800">electrodeposición (o galvanoplastia)</strong>: el objeto
+                                que se desea recubrir se conecta como <strong>cátodo (−)</strong> dentro de una solución
+                                con iones del metal protector (cromo, níquel, plata, zinc). Al circular corriente, esos
+                                cationes se reducen y se depositan formando una película uniforme sobre la pieza.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App 3: Importancia en la industria -->
+                    <div
+                        class="accordion-item bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-indigo-100 text-indigo-700 flex items-center justify-center text-xl shrink-0"
+                                >
+                                    <i class="fa-solid fa-industry"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-indigo-700">PREGUNTA 03</span>
+                                    <h3 class="font-display font-extrabold text-slate-800 text-lg">
+                                        ¿Qué importancia tiene la electrólisis en la industria?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-6 pb-6 pt-2 border-t border-slate-100 text-slate-600 text-sm sm:text-base leading-relaxed"
+                            >
+                                Es fundamental porque permite
+                                <strong class="text-slate-800">obtener metales de altísima pureza</strong>, proteger
+                                piezas industriales contra el desgaste y la corrosión, y sintetizar insumos químicos
+                                esenciales a gran escala que no pueden obtenerse de manera rentable por métodos químicos
+                                convencionales.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App 4: Obtención de aluminio -->
+                    <div
+                        class="accordion-item bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-700 flex items-center justify-center text-xl shrink-0"
+                                >
+                                    <i class="fa-solid fa-cubes"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-blue-700">PREGUNTA 04</span>
+                                    <h3 class="font-display font-extrabold text-slate-800 text-lg">
+                                        ¿Qué relación existe entre la electrólisis y la obtención de aluminio?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div
+                                class="accordion-inner px-6 pb-6 pt-2 border-t border-slate-100 text-slate-600 text-sm sm:text-base leading-relaxed"
+                            >
+                                El aluminio es muy reactivo y no puede extraerse de su mineral mediante hornos comunes
+                                con carbón. Se obtiene por
+                                <strong class="text-blue-800">electrólisis ígnea (proceso Hall-Héroult)</strong>: se
+                                disuelve alúmina ($\text{Al}_2\text{O}_3$) en criolita fundida a casi 960 °C y se hace
+                                pasar una intensa corriente eléctrica que deposita aluminio líquido puro en el cátodo.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- App 5: Tres aplicaciones concretas (Ancho completo) -->
+                    <div
+                        class="md:col-span-2 accordion-item bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4"
+                        >
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl shrink-0"
+                                >
+                                    <i class="fa-solid fa-list-check"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold text-emerald-700">PREGUNTA 05</span>
+                                    <h3 class="font-display font-extrabold text-slate-800 text-lg">
+                                        Tres aplicaciones clave en la vida cotidiana o en la industria
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-400 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="accordion-inner px-6 pb-6 pt-3 border-t border-slate-100">
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                        <div class="text-cyan-600 text-xl mb-2">
+                                            <i class="fa-solid fa-screwdriver-wrench"></i>
+                                        </div>
+                                        <h4 class="font-display font-extrabold text-slate-800 text-sm mb-1">
+                                            1. Galvanizado y Cromado
+                                        </h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">
+                                            Recubrimiento anticorrosivo de chapas, tornillos, carrocerías de autos y
+                                            griferías cromadas o niqueladas.
+                                        </p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                        <div class="text-orange-600 text-xl mb-2"><i class="fa-solid fa-bolt"></i></div>
+                                        <h4 class="font-display font-extrabold text-slate-800 text-sm mb-1">
+                                            2. Refinación de Cobre
+                                        </h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">
+                                            Purificación electrolítica del cobre (99,99% puro) indispensable para
+                                            fabricar cables eléctricos y electrónica.
+                                        </p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                                        <div class="text-emerald-600 text-xl mb-2">
+                                            <i class="fa-solid fa-vials"></i>
+                                        </div>
+                                        <h4 class="font-display font-extrabold text-slate-800 text-sm mb-1">
+                                            3. Producción Química
+                                        </h4>
+                                        <p class="text-xs text-slate-600 leading-relaxed">
+                                            Obtención industrial de hidrógeno verde (combustible limpio), cloro
+                                            (potabilización de agua) y soda cáustica.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 5: ESQUEMA INTEGRADOR INTERACTIVO (DIAGRAMA ROTULADO)     -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel" data-slide="4">
+                <div class="mb-6">
+                    <span
+                        class="font-mono text-xs font-bold uppercase tracking-wider text-sky-600 bg-sky-50 border border-sky-200 px-3 py-1 rounded-full"
+                        >Actividad Integradora — Parte 1</span
+                    >
+                    <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 mt-2">
+                        Esquema Interactivo del Dispositivo Experimental
+                    </h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-1">
+                        Hacé clic en cualquiera de los 6 componentes para resaltarlo en el esquema y revisar qué debés
+                        rotular en tu carpeta.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <!-- Diagrama SVG Grande (7 cols) -->
+                    <div class="lg:col-span-7 bg-slate-900 rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-800">
+                        <svg viewBox="0 0 640 380" class="w-full h-auto select-none">
+                            <!-- Fondo técnico sutil -->
+                            <rect x="0" y="335" width="640" height="45" fill="#1e293b" />
+
+                            <!-- 4. ELECTROLITO (Solución en el recipiente) -->
+                            <g
+                                id="diag-electrolyte"
+                                onclick="selectDiagramPart('electrolyte')"
+                                class="cursor-pointer transition-opacity"
+                            >
+                                <rect
+                                    x="52"
+                                    y="160"
+                                    width="296"
+                                    height="155"
+                                    rx="10"
+                                    fill="#0284c7"
+                                    fill-opacity="0.42"
+                                    stroke="#38bdf8"
+                                    stroke-width="2"
+                                />
+                                <text
+                                    x="200"
+                                    y="295"
+                                    text-anchor="middle"
+                                    fill="#bae6fd"
+                                    font-family="Nunito"
+                                    font-size="13"
+                                    font-weight="800"
+                                >
+                                    SOLUCIÓN ELECTROLÍTICA (H₂O + NaHCO₃)
+                                </text>
+                                <!-- Iones -->
+                                <circle cx="155" cy="215" r="11" fill="#10b981" />
+                                <text
+                                    x="155"
+                                    y="219"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="9"
+                                    font-weight="bold"
+                                >
+                                    Na+
+                                </text>
+                                <circle cx="245" cy="245" r="11" fill="#f43f5e" />
+                                <text
+                                    x="245"
+                                    y="249"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="9"
+                                    font-weight="bold"
+                                >
+                                    OH-
+                                </text>
+                            </g>
+
+                            <!-- Recipiente exterior -->
+                            <path
+                                d="M48,125 L48,312 A10,10 0 0,0 58,322 L342,322 A10,10 0 0,0 352,312 L352,125"
+                                fill="none"
+                                stroke="#94a3b8"
+                                stroke-width="3.5"
+                            />
+
+                            <!-- 2. ÁNODO (+) y 5. ELECTRODO IZQUIERDO -->
+                            <g id="diag-anode" onclick="selectDiagramPart('anode')" class="cursor-pointer">
+                                <rect
+                                    x="102"
+                                    y="95"
+                                    width="22"
+                                    height="190"
+                                    rx="5"
+                                    fill="#475569"
+                                    stroke="#ef4444"
+                                    stroke-width="2.5"
+                                />
+                                <rect x="65" y="60" width="96" height="24" rx="6" fill="#ef4444" />
+                                <text
+                                    x="113"
+                                    y="76"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="11"
+                                    font-weight="bold"
+                                >
+                                    2. ÁNODO (+)
+                                </text>
+                            </g>
+
+                            <!-- 3. CÁTODO (-) y 5. ELECTRODO DERECHO -->
+                            <g id="diag-cathode" onclick="selectDiagramPart('cathode')" class="cursor-pointer">
+                                <rect
+                                    x="276"
+                                    y="95"
+                                    width="22"
+                                    height="190"
+                                    rx="5"
+                                    fill="#475569"
+                                    stroke="#38bdf8"
+                                    stroke-width="2.5"
+                                />
+                                <rect x="239" y="60" width="96" height="24" rx="6" fill="#0284c7" />
+                                <text
+                                    x="287"
+                                    y="76"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="11"
+                                    font-weight="bold"
+                                >
+                                    3. CÁTODO (-)
+                                </text>
+                            </g>
+
+                            <!-- 1. FUENTE DE CORRIENTE ELÉCTRICA -->
+                            <g id="diag-source" onclick="selectDiagramPart('source')" class="cursor-pointer">
+                                <rect
+                                    x="440"
+                                    y="185"
+                                    width="160"
+                                    height="125"
+                                    rx="14"
+                                    fill="#1e293b"
+                                    stroke="#f59e0b"
+                                    stroke-width="2.5"
+                                />
+                                <rect x="456" y="205" width="128" height="40" rx="8" fill="#2563eb" />
+                                <text
+                                    x="520"
+                                    y="230"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="12"
+                                    font-weight="bold"
+                                >
+                                    1. FUENTE CC (3-6V)
+                                </text>
+                                <text
+                                    x="520"
+                                    y="272"
+                                    text-anchor="middle"
+                                    fill="#cbd5e1"
+                                    font-family="Nunito Sans"
+                                    font-size="11"
+                                >
+                                    Batería o Portapilas
+                                </text>
+
+                                <!-- Polo + -->
+                                <rect x="465" y="168" width="24" height="17" rx="4" fill="#ef4444" />
+                                <text
+                                    x="477"
+                                    y="181"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="13"
+                                    font-weight="bold"
+                                >
+                                    +
+                                </text>
+                                <!-- Polo - -->
+                                <rect x="550" y="168" width="24" height="17" rx="4" fill="#0ea5e9" />
+                                <text
+                                    x="562"
+                                    y="181"
+                                    text-anchor="middle"
+                                    fill="#fff"
+                                    font-family="JetBrains Mono"
+                                    font-size="13"
+                                    font-weight="bold"
+                                >
+                                    -
+                                </text>
+                            </g>
+
+                            <!-- 6. SENTIDO DE MOVIMIENTO DE ELECTRONES (Circuito externo) -->
+                            <g id="diag-electrons" onclick="selectDiagramPart('electrons')" class="cursor-pointer">
+                                <!-- Cable + hacia Ánodo -->
+                                <path
+                                    d="M477,168 C477,32 113,32 113,60"
+                                    fill="none"
+                                    stroke="#ef4444"
+                                    stroke-width="4"
+                                />
+                                <path
+                                    d="M113,60 C113,32 477,32 477,168"
+                                    fill="none"
+                                    stroke="#fef08a"
+                                    stroke-width="2.5"
+                                    class="electron-stream"
+                                />
+
+                                <!-- Cable - hacia Cátodo -->
+                                <path
+                                    d="M562,168 C562,110 298,110 298,110"
+                                    fill="none"
+                                    stroke="#0ea5e9"
+                                    stroke-width="4"
+                                />
+                                <path
+                                    d="M562,168 C562,110 298,110 298,110"
+                                    fill="none"
+                                    stroke="#fef08a"
+                                    stroke-width="2.5"
+                                    class="electron-stream"
+                                />
+
+                                <!-- Etiqueta visual de dirección e- -->
+                                <rect
+                                    x="330"
+                                    y="18"
+                                    width="215"
+                                    height="24"
+                                    rx="8"
+                                    fill="#fef08a"
+                                    stroke="#eab308"
+                                    stroke-width="1.5"
+                                />
+                                <text
+                                    x="437"
+                                    y="34"
+                                    text-anchor="middle"
+                                    fill="#713f12"
+                                    font-family="JetBrains Mono"
+                                    font-size="10.5"
+                                    font-weight="bold"
+                                >
+                                    6. Sentido e⁻: Polo (-) → Cátodo
+                                </text>
+                            </g>
+
+                            <!-- Callout 5: Electrodos de grafito -->
+                            <g id="diag-electrodes" onclick="selectDiagramPart('electrodes')" class="cursor-pointer">
+                                <rect
+                                    x="136"
+                                    y="182"
+                                    width="128"
+                                    height="24"
+                                    rx="6"
+                                    fill="#334155"
+                                    stroke="#94a3b8"
+                                    stroke-width="1.5"
+                                />
+                                <text
+                                    x="200"
+                                    y="198"
+                                    text-anchor="middle"
+                                    fill="#f8fafc"
+                                    font-family="JetBrains Mono"
+                                    font-size="10"
+                                    font-weight="bold"
+                                >
+                                    5. Electrodos (Grafito)
+                                </text>
+                                <line x1="136" y1="194" x2="124" y2="194" stroke="#94a3b8" stroke-width="1.5" />
+                                <line x1="264" y1="194" x2="276" y2="194" stroke="#94a3b8" stroke-width="1.5" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Selector y Panel de Detalle (5 cols) -->
+                    <div class="lg:col-span-5 space-y-3">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button
+                                onclick="selectDiagramPart('source')"
+                                id="dBtn-source"
+                                class="diag-btn p-3 rounded-2xl border-2 border-amber-500 bg-amber-50 text-left font-display font-extrabold text-xs sm:text-sm text-amber-950 transition"
+                            >
+                                1. Fuente de corriente
+                            </button>
+                            <button
+                                onclick="selectDiagramPart('anode')"
+                                id="dBtn-anode"
+                                class="diag-btn p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left font-display font-extrabold text-xs sm:text-sm text-slate-800 transition"
+                            >
+                                2. Ánodo (+)
+                            </button>
+                            <button
+                                onclick="selectDiagramPart('cathode')"
+                                id="dBtn-cathode"
+                                class="diag-btn p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left font-display font-extrabold text-xs sm:text-sm text-slate-800 transition"
+                            >
+                                3. Cátodo (−)
+                            </button>
+                            <button
+                                onclick="selectDiagramPart('electrolyte')"
+                                id="dBtn-electrolyte"
+                                class="diag-btn p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left font-display font-extrabold text-xs sm:text-sm text-slate-800 transition"
+                            >
+                                4. Electrolito
+                            </button>
+                            <button
+                                onclick="selectDiagramPart('electrodes')"
+                                id="dBtn-electrodes"
+                                class="diag-btn p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left font-display font-extrabold text-xs sm:text-sm text-slate-800 transition"
+                            >
+                                5. Electrodos
+                            </button>
+                            <button
+                                onclick="selectDiagramPart('electrons')"
+                                id="dBtn-electrons"
+                                class="diag-btn p-3 rounded-2xl border-2 border-slate-200 bg-white hover:border-slate-300 text-left font-display font-extrabold text-xs sm:text-sm text-slate-800 transition"
+                            >
+                                6. Movimiento de e⁻
+                            </button>
+                        </div>
+
+                        <!-- Tarjeta explicativa dinámica del componente seleccionado -->
+                        <div
+                            id="diagramDetailCard"
+                            class="bg-white rounded-3xl border-2 border-amber-300 p-5 sm:p-6 shadow-md"
+                        >
+                            <div class="flex items-center gap-3 mb-3">
+                                <div
+                                    id="diagIconBox"
+                                    class="w-11 h-11 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl"
+                                >
+                                    <i class="fa-solid fa-car-battery"></i>
+                                </div>
+                                <div>
+                                    <span id="diagTag" class="font-mono text-xs font-bold uppercase text-amber-700"
+                                        >Componente 1 de 6</span
+                                    >
+                                    <h3 id="diagTitle" class="font-display font-black text-slate-900 text-lg">
+                                        Fuente de Corriente Eléctrica
+                                    </h3>
+                                </div>
+                            </div>
+                            <p id="diagDesc" class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                                Batería o portapilas de corriente continua de <strong>3 a 6 voltios</strong>. Suministra
+                                la diferencia de potencial necesaria para impulsar los electrones a través del circuito
+                                externo y forzar la reacción química dentro de la celda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- DIAPOSITIVA 6: CONCLUSIONES DEL TRABAJO PRÁCTICO                      -->
+            <!-- ===================================================================== -->
+            <section class="slide-panel" data-slide="5">
+                <div class="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                    <div>
+                        <span
+                            class="font-mono text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full"
+                            >Cierre y Síntesis</span
+                        >
+                        <h2 class="font-display font-black text-2xl sm:text-3xl text-slate-900 mt-2">
+                            Conclusiones del Trabajo Práctico
+                        </h2>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            onclick="toggleAllInSlide(5, true)"
+                            class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye"></i> Mostrar conclusiones
+                        </button>
+                        <button
+                            onclick="toggleAllInSlide(5, false)"
+                            class="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 font-bold text-xs transition flex items-center gap-1.5"
+                        >
+                            <i class="fa-solid fa-eye-slash"></i> Ocultar conclusiones
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Tarjeta 1: Conclusión Actividad Integradora (5 a 10 renglones) -->
+                    <div
+                        class="accordion-item active bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4 bg-gradient-to-r from-blue-50 to-indigo-50/60"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shrink-0 shadow-sm"
+                                >
+                                    <i class="fa-solid fa-pen-nib"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold uppercase text-blue-700"
+                                        >Actividad Integradora (7 renglones)</span
+                                    >
+                                    <h3 class="font-display font-extrabold text-slate-900 text-lg">
+                                        ¿Qué aprendimos a partir de las experiencias?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-500 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content open">
+                            <div class="accordion-inner p-6 border-t border-slate-100">
+                                <blockquote
+                                    class="p-4 sm:p-5 rounded-2xl bg-slate-50 border-l-4 border-blue-600 text-slate-700 text-sm sm:text-base leading-relaxed italic"
+                                >
+                                    "Con estas experiencias comprobamos que no todas las soluciones conducen la
+                                    corriente eléctrica: el agua con sal permitió el paso de corriente porque libera
+                                    iones móviles, mientras que el agua con azúcar no lo hizo al disolverse como
+                                    moléculas neutras. Al agregar bicarbonato de sodio como electrolito y conectar la
+                                    batería de corriente continua, observamos que la electricidad puede impulsar
+                                    reacciones químicas que no ocurren de manera espontánea. La aparición de burbujas en
+                                    los electrodos evidenció la formación de nuevos gases a partir del líquido. Además,
+                                    comprendimos que cada electrodo cumple una función específica según su polaridad:
+                                    oxidación en el ánodo (+) y reducción en el cátodo (−). En síntesis, la energía
+                                    eléctrica es capaz de provocar transformaciones químicas reales en la materia."
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Conclusión Final Fundamentada -->
+                    <div
+                        class="accordion-item active bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden"
+                    >
+                        <button
+                            onclick="toggleCard(this)"
+                            class="w-full p-6 text-left flex items-center justify-between gap-4 bg-gradient-to-r from-emerald-50 to-teal-50/60"
+                        >
+                            <div class="flex items-center gap-3.5">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center text-xl shrink-0 shadow-sm"
+                                >
+                                    <i class="fa-solid fa-atom"></i>
+                                </div>
+                                <div>
+                                    <span class="font-mono text-xs font-bold uppercase text-emerald-700"
+                                        >Conclusión Final Fundamentada</span
+                                    >
+                                    <h3 class="font-display font-extrabold text-slate-900 text-lg">
+                                        ¿Por qué afirmamos que la electricidad produce cambios químicos?
+                                    </h3>
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-chevron-down text-slate-500 accordion-chevron"></i>
+                        </button>
+                        <div class="accordion-content open">
+                            <div
+                                class="accordion-inner p-6 border-t border-slate-100 space-y-3 text-slate-700 text-sm sm:text-base leading-relaxed"
+                            >
+                                <p>
+                                    Podemos afirmarlo porque el paso de corriente eléctrica continua a través de una
+                                    solución con iones obliga a que ocurran
+                                    <strong class="text-slate-900">reacciones de oxidación y reducción</strong> en la
+                                    superficie de los electrodos, transformando las sustancias iniciales en productos
+                                    completamente distintos.
+                                </p>
+                                <div
+                                    class="p-4 rounded-2xl bg-emerald-50/80 border border-emerald-200 text-xs sm:text-sm text-emerald-950"
+                                >
+                                    <strong class="block mb-1"
+                                        ><i class="fa-solid fa-microscope mr-1.5 text-emerald-600"></i>Evidencia
+                                        experimental obtenida:</strong
+                                    >
+                                    Cuando conectamos la batería al recipiente con agua y bicarbonato, se encendió el
+                                    circuito y comenzaron a desprenderse burbujas de gas (<span
+                                        class="font-mono font-bold"
+                                        >H₂</span
+                                    >
+                                    y <span class="font-mono font-bold">O₂</span>) en ambos electrodos. Esto demuestra
+                                    que no hubo un simple cambio físico o mezcla, sino la descomposición química del
+                                    agua en nuevas sustancias gaseosas.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Repaso Rápido Final -->
+                <div
+                    class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-lg"
+                >
+                    <div>
+                        <span class="font-mono text-xs font-bold uppercase text-emerald-400"
+                            >¡Listo para rendir o entregar el TP!</span
+                        >
+                        <h3 class="font-display font-black text-xl sm:text-2xl mt-1">
+                            ¿Querés volver a probar las simulaciones?
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-1">
+                            Podés navegar con las flechas del teclado (<kbd
+                                class="px-2 py-0.5 bg-slate-800 border border-slate-600 rounded text-xs"
+                                >←</kbd
+                            >
+                            <kbd class="px-2 py-0.5 bg-slate-800 border border-slate-600 rounded text-xs">→</kbd>) o
+                            saltar directo a cualquier diapositiva.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 shrink-0">
+                        <button
+                            onclick="goToSlide(1)"
+                            class="px-4 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-sm transition"
+                        >
+                            <i class="fa-solid fa-flask mr-1.5"></i> Ir a Exp. 1
+                        </button>
+                        <button
+                            onclick="goToSlide(2)"
+                            class="px-4 py-2.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-display font-extrabold text-sm transition"
+                        >
+                            <i class="fa-solid fa-bolt mr-1.5"></i> Ir a Exp. 2
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- PIE DE PÁGINA CON NAVEGACIÓN MÓVIL RÁPIDA -->
+        <footer class="bg-white border-t border-slate-200 py-3 px-4 mt-auto">
+            <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+                <span>Química · Guía Visual Interactiva de Electrólisis y Conducción en Soluciones</span>
+                <div class="flex lg:hidden items-center gap-1">
+                    <button onclick="goToSlide(0)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="0">
+                        1
+                    </button>
+                    <button onclick="goToSlide(1)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="1">
+                        2
+                    </button>
+                    <button onclick="goToSlide(2)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="2">
+                        3
+                    </button>
+                    <button onclick="goToSlide(3)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="3">
+                        4
+                    </button>
+                    <button onclick="goToSlide(4)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="4">
+                        5
+                    </button>
+                    <button onclick="goToSlide(5)" class="mobile-dot w-7 h-7 rounded-lg font-bold" data-index="5">
+                        6
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

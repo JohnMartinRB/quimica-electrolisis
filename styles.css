@@ -1,0 +1,144 @@
+/* Estilos personalizados para animaciones de laboratorio, burbujas, flujo de electrones y tarjetas */
+body {
+    overflow-x: hidden;
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+.accordion-content {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-content.open {
+    grid-template-rows: 1fr;
+}
+.accordion-inner {
+    overflow: hidden;
+}
+.accordion-chevron {
+    transition: transform 0.3s ease;
+}
+.accordion-item.active .accordion-chevron {
+    transform: rotate(180deg);
+}
+
+/* Animación de burbujas en electrólisis */
+@keyframes riseBubble {
+    0% {
+        transform: translateY(0) scale(0.7);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-95px) scale(1.15);
+        opacity: 0;
+    }
+}
+
+.bubble {
+    animation: riseBubble var(--dur, 2s) infinite ease-in;
+    animation-delay: var(--delay, 0s);
+}
+
+/* Animación flujo de electrones (dash-offset) */
+@keyframes flowElectrons {
+    to {
+        stroke-dashoffset: -24;
+    }
+}
+.electron-stream {
+    stroke-dasharray: 6 6;
+    animation: flowElectrons 0.7s linear infinite;
+}
+
+/* Resplandor LED rojo */
+@keyframes pulseLed {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.95));
+    }
+    50% {
+        filter: drop-shadow(0 0 16px rgba(252, 165, 165, 1));
+    }
+}
+.led-on {
+    animation: pulseLed 1.2s infinite ease-in-out;
+}
+
+/* Movimiento suave de iones en solución */
+@keyframes ionDriftLeft {
+    0%,
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(-14px) translateY(-4px);
+    }
+}
+@keyframes ionDriftRight {
+    0%,
+    100% {
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        transform: translateX(14px) translateY(4px);
+    }
+}
+@keyframes moleculeFloat {
+    0%,
+    100% {
+        transform: translate(0px, 0px);
+    }
+    50% {
+        transform: translate(4px, -5px);
+    }
+}
+
+.ion-cation {
+    animation: ionDriftRight 2.2s infinite ease-in-out;
+}
+.ion-anion {
+    animation: ionDriftLeft 2.2s infinite ease-in-out;
+}
+.neutral-mol {
+    animation: moleculeFloat 3.5s infinite ease-in-out;
+}
+
+/* Transición entre diapositivas */
+.slide-panel {
+    display: none;
+    animation: fadeSlideIn 0.35s ease-out;
+}
+.slide-panel.active {
+    display: block;
+}
+@keyframes fadeSlideIn {
+    from {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Scrollbar sutil */
+::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+::-webkit-scrollbar-track {
+    border-radius: 999px;
+    background: #e2e8f0;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: #94a3b8;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
